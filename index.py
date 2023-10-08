@@ -57,12 +57,12 @@ def target_transactions(list_of_transactions, type_of_operation, owner):
             if(owner in transaction['name'].lower()):
                 sum_of_target_operations += float(transaction['value'])
                 number_of_operations += 1
-                print(transaction['name'], transaction['value'])
+                # print(transaction['name'], transaction['value'])
 
-    print(f'{number_of_operations} operações em {owner} somando:', sum_of_target_operations)
+    # print(f'{number_of_operations} operações em {owner} somando:', sum_of_target_operations)
     return sum_of_target_operations
 
 
-target_transactions(all_transactions, 'recebida', 'samya')
+
 
 
