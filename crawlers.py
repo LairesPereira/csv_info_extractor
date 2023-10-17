@@ -12,7 +12,6 @@ def all_transactions_values(list_of_transactions, type_of_operation):
     
     return total_sum
 
-
 # algumas transacoes podem vir do proprio dono da conta
 # atraves de outras contas em seu nome, devemos ignorar
 # essas transações para termos o real montante de valor
@@ -43,26 +42,51 @@ def all_real_transaction_values(list_of_transactions, type_of_operation, owner):
 full_result = all_transactions_values(all_transactions, 'recebida')
 real_result_value = all_real_transaction_values(all_transactions, 'enviada', 'laires')
 real_result_recived = all_real_transaction_values(all_transactions, 'recebida', 'laires')
-# print(real_result_value)
-# print(real_result_recived)
 
 
 
-def target_transactions(list_of_transactions, type_of_operation, owner):
+# atraves de um nome soma todas as operações feitas naquele nome
+def target_send_transactions(list_of_transactions, owner):
+    sum_value = 0
+    number = 0
+    name = ''
+   
 
-    number_of_operations = 0
-    sum_of_target_operations = 0
     for transaction in list_of_transactions:
-        if(type_of_operation in transaction['type'].lower()):
-            if(owner in transaction['name'].lower()):
-                sum_of_target_operations += float(transaction['value'])
-                number_of_operations += 1
-                # print(transaction['name'], transaction['value'])
+        if 'enviada' in transaction['type']:
+            if owner in transaction['name']:
+                if float(transaction['value']) < 0:
+                    sum_value += float(transaction['value'])
+                    number += 1
+                    name = transaction['name']
+    
+        target_transactions_info = {
+            'name': name,
+            'number_of_operations': number,
+            'sum_of_target_operation': sum_value
+        }
+    
+    return target_transactions_info
 
-    # print(f'{number_of_operations} operações em {owner} somando:', sum_of_target_operations)
-    return sum_of_target_operations
-
-
-
+def target_recived_transactions(list_of_transactions, owner):
+    sum_value = 0
+    number = 0
+    name = ''
+   
+    for transaction in list_of_transactions:
+        if 'recebida' in transaction['type']:
+            if owner in transaction['name']:
+                if float(transaction['value']) > 0:
+                    sum_value += float(transaction['value'])
+                    number += 1
+                    name = transaction['name']
+    
+        target_transactions_info = {
+            'name': name,
+            'number_of_operations': number,
+            'sum_of_target_operation': sum_value
+        }
+    
+    return target_transactions_info
 
 

@@ -15,10 +15,10 @@ def getTransactionsInfo():
             elif('fatura' in line['Descrição']): continue
             else:
                 transaction_info = {
-                    'type': line['Descrição'].split('-')[0],
-                    'date': line['Data'],
-                    'value': line['Valor'],
-                    'name': line['Descrição'].split('-')[1]
+                    "date": line['Data'],
+                    "type": line['Descrição'].split('-')[0].lower(),
+                    "name": line['Descrição'].split('-')[1].lower(),
+                    "value": line['Valor'],
                 }
                 final_list.append(transaction_info)    
         return final_list
