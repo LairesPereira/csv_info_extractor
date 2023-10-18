@@ -1,7 +1,5 @@
 from list_all_transactions import getTransactionsInfo
 
-all_transactions = getTransactionsInfo()
-
 # o parametro tipo de operações
 # devem ser sempre 'enviada' ou 'recebida'
 def all_transactions_values(list_of_transactions, type_of_operation):
@@ -39,18 +37,11 @@ def all_real_transaction_values(list_of_transactions, type_of_operation, owner):
             'crossed_transactions_value: ': crossed_transactions_value,
             }
 
-full_result = all_transactions_values(all_transactions, 'recebida')
-real_result_value = all_real_transaction_values(all_transactions, 'enviada', 'laires')
-real_result_recived = all_real_transaction_values(all_transactions, 'recebida', 'laires')
-
-
-
 # atraves de um nome soma todas as operações feitas naquele nome
 def target_send_transactions(list_of_transactions, owner):
     sum_value = 0
     number = 0
     name = ''
-   
 
     for transaction in list_of_transactions:
         if 'enviada' in transaction['type']:

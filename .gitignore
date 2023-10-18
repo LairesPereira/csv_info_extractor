@@ -1,0 +1,9 @@
+/test_files/*
+/csv_files/*
+/month_sheets/*
+
+#ignore all csv files because they may have sensitive information 
+.csv_files
+
+#mac system files
+.DS_Store
