@@ -1,26 +1,30 @@
-import csv
+import matplotlib.pyplot as plt
+import numpy as np
 
-# nubank_outubro_2023.csv
+transactions_types = ('Enviada', 'Recebida')
+penguin_means = {
+    'Posto': (18, 0),
+    'Cajazeiras': (35, 4),
+    'Acai': (65, 0),
+}
 
-# listando todas as transações
-# abrir o arquivo como objeto
-# para cada linha imprimimos apenas a informação relevante
+x = np.arange(len(transactions_types))  # the label locations
+width = 0.25  # the width of the bars
+multiplier = 0
 
-def getTransactionsInfo():
-    with open('test.csv', 'r') as csvfile:
-        csv_reader = csv.DictReader(csvfile, delimiter=',')
-        final_list = []
-        for line in csv_reader:
-            if('Boleto' in line['Descrição']): continue
-            elif('fatura' in line['Descrição']): continue
-            else:
-                transaction_info = {
-                    'type': line['Descrição'].split('-')[0],
-                    'date': line['Data'],
-                    'value': line['Valor'],
-                    'name': line['Descrição'].split('-')[1]
-                }
-                final_list.append(transaction_info)    
-        return final_list
+fig, ax = plt.subplots(layout='constrained')
 
-print(getTransactionsInfo())
+for attribute, measurement in penguin_means.items():
+    offset = width * multiplier
+    rects = ax.bar(x + offset, measurement, width, label=attribute)
+    ax.bar_label(rects, padding=2)
+    multiplier += 1
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_ylabel('Length (mm)')
+ax.set_title('Penguin attributes by species')
+ax.set_xticks(x + width, transactions_types)
+ax.legend(loc='upper left', ncols=2)
+ax.set_ylim(0, 250)
+
+plt.show()
