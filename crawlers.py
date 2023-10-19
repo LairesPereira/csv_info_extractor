@@ -54,7 +54,7 @@ def target_send_transactions(list_of_transactions, owner):
         target_transactions_info = {
             'name': name,
             'number_of_operations': number,
-            'sum_of_target_operation': sum_value
+            'sum_of_target_operation': sum_value * -1
         }
     
     return target_transactions_info
